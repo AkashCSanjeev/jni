@@ -2,7 +2,7 @@
 
 A benchmark app built to answer one question: **is JNI actually worth the overhead?**
 
-This is the companion code for the blog post *"Crossing the Line: JNI on Android — From First Call to Real Performance"*. It runs five tests on your device and shows you exactly where JNI wins, where it loses, and why.
+This is the companion code for the blog post *["Crossing the Line: JNI on Android — From First Call to Real Performance"](https://medium.com/@akashcsanjeev/crossing-the-line-jni-basics-and-real-performance-838d5acc6d8c)*. It runs five tests on your device and shows you exactly where JNI wins, where it loses, and why.
 
 All numbers in the blog were collected from a **Pixel 7a (Tensor G2)** running a **release build**.
 
