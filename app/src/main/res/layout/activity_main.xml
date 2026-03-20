@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="JNI deep dive"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- ── 1: Hello World ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardCornerRadius="16dp" app:cardElevation="0dp" app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+
+                    <TextView android:text="1 — Hello World"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"/>
+                    <TextView
+                        android:text="One call to C++. Shows the naming convention and how a string crosses the JVM↔native boundary."
+                        android:textSize="13sp" android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHello"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Call JNI" android:layout_marginBottom="10dp"/>
+                    <TextView android:id="@+id/tvHelloResult"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="13sp" android:fontFamily="monospace" android:textColor="@color/black"
+                        android:background="@drawable/result_bg_kotlin"
+                        android:padding="10dp"
+                        android:visibility="gone" android:layout_marginBottom="8dp"/>
+                    <TextView android:id="@+id/tvHelloMeta"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="12sp" android:textColor="?attr/colorOnSurfaceVariant"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── 2: JNI boundary cost ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardCornerRadius="16dp" app:cardElevation="0dp" app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+
+                    <TextView android:text="2 — JNI boundary cost"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"/>
+                    <TextView
+                        android:text="A native function that does nothing. The measured time is the fixed toll every JNI call pays before any of your code runs."
+                        android:textSize="13sp" android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBoundary"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Measure boundary cost"
+                        android:layout_marginBottom="10dp"/>
+                    <LinearLayout
+                        android:id="@+id/boundaryContainer"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── 3: Addition × 2000 ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardCornerRadius="16dp" app:cardElevation="0dp" app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+
+                    <TextView android:text="3 — Addition × 2000 calls"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"/>
+                    <TextView
+                        android:text="Adding two numbers 2000 times. The most common JNI mistake."
+                        android:textSize="13sp" android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAdd"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Run benchmark"
+                        android:layout_marginBottom="10dp"/>
+                    <LinearLayout
+                        android:id="@+id/addContainer"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── 4: Sort 500k ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardCornerRadius="16dp" app:cardElevation="0dp" app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+
+                    <TextView android:text="4 — Sort 500k integers"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"/>
+                    <TextView
+                        android:text="std::sort vs Kotlin Arrays.sort on 500,000 integers. One JNI call, ~9.5M comparisons."
+                        android:textSize="13sp" android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"/>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSort"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Run benchmark"
+                        android:layout_marginBottom="10dp"/>
+                    <LinearLayout
+                        android:id="@+id/sortContainer"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── 5: Blur 9×9 on 1920×1080 ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardCornerRadius="16dp" app:cardElevation="0dp" app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+
+                    <TextView android:text="5 — 9×9 Blur — 1920×1080"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"/>
+                    <TextView
+                        android:text="81 samples per pixel on a full 1080p image — ~168M multiply-add ops. NEON SIMD, direct pixel pointer, zero heap allocations."
+                        android:textSize="13sp" android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBlur"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Run benchmark"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Before / after images — kept from your original layout -->
+                    <LinearLayout
+                        android:id="@+id/imageRow"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:visibility="gone"
+                        android:layout_marginBottom="12dp">
+                        <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                            android:layout_height="wrap_content" android:orientation="vertical"
+                            android:layout_marginEnd="6dp">
+                            <TextView android:text="Original" android:textSize="11sp"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:gravity="center"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"/>
+                            <ImageView android:id="@+id/imgOriginal"
+                                android:layout_width="match_parent" android:layout_height="130dp"
+                                android:scaleType="centerCrop"
+                                android:background="?attr/colorSurfaceVariant"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                            android:layout_height="wrap_content" android:orientation="vertical"
+                            android:layout_marginStart="6dp">
+                            <TextView android:text="After JNI blur" android:textSize="11sp"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:gravity="center"
+                                android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"/>
+                            <ImageView android:id="@+id/imgBlurred"
+                                android:layout_width="match_parent" android:layout_height="130dp"
+                                android:scaleType="centerCrop"
+                                android:background="?attr/colorSurfaceVariant"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Result card injected here at runtime -->
+                    <LinearLayout
+                        android:id="@+id/blurContainer"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

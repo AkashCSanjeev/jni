@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.JNI_Blog" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#9ECAFF</item>
+        <item name="colorOnPrimary">#003258</item>
+        <item name="colorPrimaryContainer">#00497D</item>
+        <item name="colorOnPrimaryContainer">#D1E4FF</item>
+
+        <item name="android:windowBackground">#1A1C1E</item>
+        <item name="colorSurface">#1A1C1E</item>
+        <item name="colorOnSurface">#E2E2E6</item>
+        <item name="colorSurfaceVariant">#43474E</item>
+        <item name="colorOnSurfaceVariant">#C3C7CF</item>
+
+        <item name="android:statusBarColor">#1A1C1E</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
